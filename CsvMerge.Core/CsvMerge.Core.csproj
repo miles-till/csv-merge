@@ -7,4 +7,8 @@
         <RootNamespace>CsvMerge</RootNamespace>
     </PropertyGroup>
 
+    <ItemGroup>
+        <InternalsVisibleTo Include="CsvMerge.Core.Tests" />
+    </ItemGroup>
+
 </Project>

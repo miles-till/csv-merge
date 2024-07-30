@@ -4,6 +4,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CsvMerge", "CsvMerge\CsvMer
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CsvMerge.Core", "CsvMerge.Core\CsvMerge.Core.csproj", "{74CB9255-A362-4358-B725-B7868AE99C1E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CsvMerge.Core.Tests", "CsvMerge.Core.Tests\CsvMerge.Core.Tests.csproj", "{81D0D5BE-C7FE-4108-ADBF-E9D33D6C7F81}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{74CB9255-A362-4358-B725-B7868AE99C1E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{74CB9255-A362-4358-B725-B7868AE99C1E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{74CB9255-A362-4358-B725-B7868AE99C1E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{81D0D5BE-C7FE-4108-ADBF-E9D33D6C7F81}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{81D0D5BE-C7FE-4108-ADBF-E9D33D6C7F81}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{81D0D5BE-C7FE-4108-ADBF-E9D33D6C7F81}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{81D0D5BE-C7FE-4108-ADBF-E9D33D6C7F81}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
