@@ -15,10 +15,7 @@ Option<string> filepathFieldOption =
         "The header for the filepath field included in the merged csv file.)"
     );
 Option<string?> workingDirectoryOption =
-    new("--working-directory", "The working directory to search for files in.")
-    {
-        Arity = ArgumentArity.ZeroOrOne,
-    };
+    new("--working-directory", () => null, "The working directory to search for files in.");
 Option<bool> overwriteOutput =
     new("--overwrite", () => true, "Overwrite output file if it already exists.");
 RootCommand rootCommand = new("CsvMerge");
@@ -46,12 +43,6 @@ static async Task Process(
     bool overwrite
 )
 {
-    Console.WriteLine($"<search-patterns> arg = {searchPatterns}");
-    Console.WriteLine($"<output> option = {outputPath}");
-    Console.WriteLine($"<working-directory> option = {workingDirectoryPath}");
-    Console.WriteLine($"<filepath-field> option = {filepathField}");
-    Console.WriteLine($"<overwrite> option = {overwrite}");
-
     if (string.IsNullOrWhiteSpace(workingDirectoryPath))
     {
         workingDirectoryPath = Environment.CurrentDirectory;
@@ -59,10 +50,13 @@ static async Task Process(
 
     Matcher matcher = new();
     matcher.AddIncludePatterns(searchPatterns);
-    var files = matcher.GetResultsInFullPath(workingDirectoryPath);
+    string[] files = matcher.GetResultsInFullPath(workingDirectoryPath).ToArray();
+
+    Console.WriteLine($"Merging {files.Length} files...");
 
     FileInfo output = new(outputPath);
-
     MergeOptions mergeOptions = new() { Output = output, FilepathField = filepathField };
     await Merger.Merge(files, mergeOptions);
+
+    Console.WriteLine($"Merge output: {output.FullName}");
 }

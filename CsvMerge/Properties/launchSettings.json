@@ -1,0 +1,12 @@
+﻿{
+  "$schema": "http://json.schemastore.org/launchsettings.json",
+  "profiles": {
+    "CsvMerge": {
+      "commandName": "Project",
+      "commandLineArgs": "Samples/file*.csv --output merge.csv --working-directory $(SolutionDir)CsvMerge.Core.Tests",
+      "environmentVariables": {
+        
+      }
+    }
+  }
+}
