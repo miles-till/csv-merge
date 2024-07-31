@@ -6,7 +6,22 @@
       "version": "0.28.2",
       "commands": [
         "dotnet-csharpier"
-      ]
+      ],
+      "rollForward": false
+    },
+    "dotnet-validate": {
+      "version": "0.0.1-preview.304",
+      "commands": [
+        "dotnet-validate"
+      ],
+      "rollForward": false
+    },
+    "nbgv": {
+      "version": "3.6.139",
+      "commands": [
+        "nbgv"
+      ],
+      "rollForward": false
     }
   }
 }

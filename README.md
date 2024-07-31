@@ -1,3 +1,3 @@
-# csv-merge
+# CsvMerge
 
-Simple tool to merge csv files
+Simple tool to merge csv files.

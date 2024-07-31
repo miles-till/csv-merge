@@ -2,6 +2,12 @@
 
     <PropertyGroup>
         <RootNamespace>CsvMerge</RootNamespace>
+        
+        <PackageId>CsvMerge.Core</PackageId>
+        <EnablePackageValidation>true</EnablePackageValidation>
+        <!--
+        <PackageValidationBaselineVersion>1.0.0</PackageValidationBaselineVersion>
+        -->
     </PropertyGroup>
 
     <ItemGroup>
