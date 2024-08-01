@@ -91,13 +91,6 @@ jobs:
     needs: build-standalone
 
     steps:
-      - name: setup dotnet
-        uses: actions/setup-dotnet@v4
-        with:
-          global-json-file: global.json
-          cache: true
-          cache-dependency-path: "**/packages.lock.json"
-
       - name: get linux-x64 artifact
         uses: actions/download-artifact@v4
         with:

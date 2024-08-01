@@ -19,7 +19,7 @@ runs:
       uses: thedoctor0/zip-release@0.7.5
       with:
         type: zip
-        filename: drop/bin/${{inputs.runtime}}/csv-merge-${{inputs.runtime}}-${GITHUB_REF_NAME}.zip
+        filename: drop/bin/${{inputs.runtime}}/csv-merge-${{inputs.runtime}}-${{env.GITHUB_REF_NAME}}.zip
         path: drop/publish/${{inputs.runtime}}
         command: mkdir -p drop/bin/${{inputs.runtime}}
 
