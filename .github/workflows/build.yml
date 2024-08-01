@@ -26,7 +26,7 @@ jobs:
       - name: dotnet tool restore
         run: dotnet tool restore
 
-      - name: csharpier check
+      - name: dotnet tool csharpier check
         run: dotnet csharpier --check .
 
       - name: dotnet restore
@@ -37,3 +37,8 @@ jobs:
 
       - name: dotnet test
         run: dotnet test --no-build --verbosity normal
+
+      - name: tag version
+        run: |
+          tagversion=$(dotnet nbgv tag | grep ": git push" | cut -f2- -dv)
+          git push origin v$tagversion
