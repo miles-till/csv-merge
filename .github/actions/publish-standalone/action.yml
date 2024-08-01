@@ -1,25 +1,29 @@
 name: publish-standalone
 
 inputs:
+  project:
+    description: path to csproj to publish
   runtime:
     description: dotnet runtime to publish against
+    required: true
   version:
-    description: version name to include in the zip filename
+    description: version name to include in the zip filename (x.y.z)
+    required: true
 
 runs:
   using: "composite"
 
   steps:
     - name: dotnet publish
-      shell: bash
-      run: dotnet publish ./CsvMerge/CsvMerge.csproj -c Release -r ${{inputs.runtime}} --self-contained /p:PublishAot=true /p:DebugSymbols=False /p:DebugType=None -o drop/publish/${{inputs.runtime}}
+      shell: pwsh
+      run: dotnet publish ${{inputs.project}} -c Release -r ${{inputs.runtime}} --self-contained /p:PublishAot=true /p:DebugSymbols=False /p:DebugType=None -o drop/publish/${{inputs.runtime}}
 
     - name: zip
-      shell: bash
-      run: |
-        mkdir -p ../../bin
-        zip -r ../../bin/csv-merge-${{inputs.runtime}}-v${{inputs.version}}.zip .
-      working-directory: drop/publish/${{inputs.runtime}}
+      uses: thedoctor0/zip-release@0.7.5
+      with:
+        type: zip
+        filename: drop/bin/${{inputs.runtime}}/csv-merge-${{inputs.runtime}}-v${{inputs.version}}.zip
+        path: drop/publish/${{inputs.runtime}}
 
     - name: artifacts
       uses: actions/upload-artifact@v4
