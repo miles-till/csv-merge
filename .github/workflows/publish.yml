@@ -112,8 +112,8 @@ jobs:
 
       - name: upload github release
         run: |
-          gh release upload --repo miles-till/csv-merge ${{github.ref_name}} drop/bin/linux-x64/linux-x64-${{github.ref_name}}.zip
-          gh release upload --repo miles-till/csv-merge ${{github.ref_name}} drop/bin/win-x64/win-x64-${{github.ref_name}}.zip
-          gh release upload --repo miles-till/csv-merge ${{github.ref_name}} drop/bin/osx-x64/osx-x64-${{github.ref_name}}.zip
+          gh release upload --repo miles-till/csv-merge ${{github.ref_name}} drop/bin/linux-x64/csv-merge-linux-x64-${{github.ref_name}}.zip
+          gh release upload --repo miles-till/csv-merge ${{github.ref_name}} drop/bin/win-x64/csv-merge-win-x64-${{github.ref_name}}.zip
+          gh release upload --repo miles-till/csv-merge ${{github.ref_name}} drop/bin/osx-x64/csv-merge-osx-x64-${{github.ref_name}}.zip
         env:
           GH_TOKEN: ${{github.token}}
