@@ -89,7 +89,7 @@ jobs:
       - uses: ./.github/actions/publish-standalone
         with:
           runtime: ${{matrix.runtime}}
-          version: ${GitBuildVersionSimple}
+          version: ${{env.GitBuildVersionSimple}}
 
   publish-standalone:
     runs-on: ubuntu-latest
@@ -128,8 +128,8 @@ jobs:
 
       - name: upload github release
         run: |
-          gh release upload --repo miles-till/csv-merge ${GITHUB_REF_NAME} drop/bin/linux-x64-v${GitBuildVersionSimple}.zip
-          gh release upload --repo miles-till/csv-merge ${GITHUB_REF_NAME} drop/bin/win-x64-v${GitBuildVersionSimple}.zip
-          gh release upload --repo miles-till/csv-merge ${GITHUB_REF_NAME} drop/bin/osx-x64-v${GitBuildVersionSimple}.zip
+          gh release upload --repo miles-till/csv-merge ${GITHUB_REF_NAME} drop/bin/linux-x64-v${{env.GitBuildVersionSimple}}.zip
+          gh release upload --repo miles-till/csv-merge ${GITHUB_REF_NAME} drop/bin/win-x64-v${{env.GitBuildVersionSimple}}.zip
+          gh release upload --repo miles-till/csv-merge ${GITHUB_REF_NAME} drop/bin/osx-x64-v${{env.GitBuildVersionSimple}}.zip
         env:
           GH_TOKEN: ${{github.token}}

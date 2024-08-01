@@ -26,3 +26,4 @@ runs:
       with:
         name: ${{inputs.runtime}}
         path: drop/bin/${{inputs.runtime}}
+        if-no-files-found: error
