@@ -19,13 +19,10 @@ runs:
       run: dotnet publish ${{inputs.project}} -c Release -r ${{inputs.runtime}} --self-contained /p:PublishAot=true /p:DebugSymbols=False /p:DebugType=None -o drop/publish/${{inputs.runtime}}
 
     - name: zip
-      uses: thedoctor0/zip-release@0.7.6
-      with:
-        type: zip
-        filename: csv-merge-${{inputs.runtime}}-${{inputs.version}}.zip
-        directory: drop/bin/${{inputs.runtime}}
-        path: ../../publish/${{inputs.runtime}}
-        command: mkdir -p drop/bin/${{inputs.runtime}}
+      shell: pwsh
+      run: |
+        mkdir -p drop/bin/${{inputs.runtime}}
+        Compress-Archive -LiteralPath drop/publish/${{inputs.runtime}}/ -DestinationPath drop/bin/${{inputs.runtime}}/csv-merge-${{inputs.runtime}}-${{inputs.version}}.zip
 
     - name: artifacts
       uses: actions/upload-artifact@v4
