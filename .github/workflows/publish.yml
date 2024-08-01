@@ -85,6 +85,7 @@ jobs:
         with:
           project: ./CsvMerge/CsvMerge.csproj
           runtime: ${{matrix.runtime}}
+          version: ${{env.GITHUB_REF_NAME}}
 
   publish-standalone:
     runs-on: ubuntu-latest
@@ -111,8 +112,8 @@ jobs:
 
       - name: upload github release
         run: |
-          gh release upload --repo miles-till/csv-merge ${GITHUB_REF_NAME} drop/bin/linux-x64-v${GITHUB_REF_NAME}.zip
-          gh release upload --repo miles-till/csv-merge ${GITHUB_REF_NAME} drop/bin/win-x64-v${GITHUB_REF_NAME}.zip
-          gh release upload --repo miles-till/csv-merge ${GITHUB_REF_NAME} drop/bin/osx-x64-v${GITHUB_REF_NAME}.zip
+          gh release upload --repo miles-till/csv-merge ${GITHUB_REF_NAME} drop/bin/linux-x64-${GITHUB_REF_NAME}.zip
+          gh release upload --repo miles-till/csv-merge ${GITHUB_REF_NAME} drop/bin/win-x64-${GITHUB_REF_NAME}.zip
+          gh release upload --repo miles-till/csv-merge ${GITHUB_REF_NAME} drop/bin/osx-x64-${GITHUB_REF_NAME}.zip
         env:
           GH_TOKEN: ${{github.token}}
