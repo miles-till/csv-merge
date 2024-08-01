@@ -1,0 +1,135 @@
+name: publish
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  publish-tool:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: setup dotnet
+        uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
+          cache: true
+          cache-dependency-path: "**/packages.lock.json"
+
+      - name: dotnet pack
+        run: dotnet pack ./CsvMerge/CsvMerge.csproj -o drop/tool
+
+      - name: publish to nuget
+        run: dotnet nuget push "drop/tool/CsvMerge.*.nupkg" --api-key "${{secrets.NUGET_APIKEY}}" --source https://api.nuget.org/v3/index.json --skip-duplicate
+
+  publish-nuget:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: setup dotnet
+        uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
+          cache: true
+          cache-dependency-path: "**/packages.lock.json"
+
+      - name: dotnet pack
+        run: dotnet pack ./CsvMerge.Core/CsvMerge.Core.csproj -o drop/nuget
+
+      - name: dotnet tool validate
+        run: |
+          dotnet tool restore
+          dotnet validate package local "drop/nuget/CsvMerge.Core.*.nupkg"
+
+      - name: publish to nuget
+        run: dotnet nuget push "drop/nuget/CsvMerge.Core.*.nupkg" --api-key "${{secrets.NUGET_APIKEY}}" --source https://api.nuget.org/v3/index.json --skip-duplicate
+
+  build-standalone:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        include:
+          - os: ubuntu-latest
+            runtime: linux-x64
+          - os: windows-latest
+            runtime: win-x64
+          - os: macos-latest
+            runtime: osx-x64
+
+    runs-on: ${{matrix.os}}
+
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: setup dotnet
+        uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
+          cache: true
+          cache-dependency-path: "**/packages.lock.json"
+
+      - name: dotnet tool nbgv
+        run: |
+          dotnet tool restore
+          dotnet nbgv cloud
+
+      - uses: ./.github/actions/publish-standalone
+        with:
+          runtime: ${{matrix.runtime}}
+          version: ${GitBuildVersionSimple}
+
+  publish-standalone:
+    runs-on: ubuntu-latest
+    needs: build-standalone
+
+    steps:
+      - name: setup dotnet
+        uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
+          cache: true
+          cache-dependency-path: "**/packages.lock.json"
+
+      - name: get linux-x64 artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: linux-x64
+          path: drop/bin
+
+      - name: get win-x64 artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: win-x64
+          path: drop/bin
+
+      - name: get osx-x64 artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: osx-x64
+          path: drop/bin
+
+      - name: dotnet tool nbgv
+        run: |
+          dotnet tool restore
+          dotnet nbgv cloud
+
+      - name: upload github release
+        run: |
+          gh release upload --repo miles-till/csv-merge ${GITHUB_REF_NAME} drop/bin/linux-x64-v${GitBuildVersionSimple}.zip
+          gh release upload --repo miles-till/csv-merge ${GITHUB_REF_NAME} drop/bin/win-x64-v${GitBuildVersionSimple}.zip
+          gh release upload --repo miles-till/csv-merge ${GITHUB_REF_NAME} drop/bin/osx-x64-v${GitBuildVersionSimple}.zip
+        env:
+          GH_TOKEN: ${{github.token}}

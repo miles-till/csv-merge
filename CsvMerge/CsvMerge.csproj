@@ -4,6 +4,7 @@
         <OutputType>Exe</OutputType>
         <AssemblyName>csv-merge</AssemblyName>
         
+        <PackageId>CsvMerge</PackageId>
         <PackAsTool>true</PackAsTool>
         <ToolCommandName>csv-merge</ToolCommandName>
     </PropertyGroup>
