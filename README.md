@@ -2,8 +2,8 @@
 
 [![CsvMerge](https://img.shields.io/nuget/v/CsvMerge)](https://www.nuget.org/packages/CsvMerge)
 [![CsvMerge.Core](https://img.shields.io/nuget/v/CsvMerge.Core)](https://www.nuget.org/packages/CsvMerge.Core)
-[![ci](https://github.com/dotnet/csv-merge/actions/workflows/build.yml/badge.svg)](https://github.com/dotnet/csv-merge/actions/workflows/build.yml)
-[![cd](https://github.com/dotnet/csv-merge/actions/workflows/publish.yml/badge.svg)](https://github.com/dotnet/csv-merge/actions/workflows/publish.yml)
+[![ci](https://github.com/miles-till/csv-merge/actions/workflows/build.yml/badge.svg?branch=main)](https://github.com/miles-till/csv-merge/actions/workflows/build.yml)
+[![cd](https://github.com/miles-till/csv-merge/actions/workflows/publish.yml/badge.svg)](https://github.com/miles-till/csv-merge/actions/workflows/publish.yml)
 
 Simple tool to merge csv files.
 
