@@ -81,16 +81,10 @@ jobs:
           cache: true
           cache-dependency-path: "**/packages.lock.json"
 
-      - name: dotnet tool nbgv
-        run: |
-          dotnet tool restore
-          dotnet nbgv cloud
-
       - uses: ./.github/actions/publish-standalone
         with:
           project: ./CsvMerge/CsvMerge.csproj
           runtime: ${{matrix.runtime}}
-          version: ${{env.GitBuildVersionSimple}}
 
   publish-standalone:
     runs-on: ubuntu-latest
@@ -122,15 +116,10 @@ jobs:
           name: osx-x64
           path: drop/bin
 
-      - name: dotnet tool nbgv
-        run: |
-          dotnet tool restore
-          dotnet nbgv cloud
-
       - name: upload github release
         run: |
-          gh release upload --repo miles-till/csv-merge ${GITHUB_REF_NAME} drop/bin/linux-x64-v${GitBuildVersionSimple}.zip
-          gh release upload --repo miles-till/csv-merge ${GITHUB_REF_NAME} drop/bin/win-x64-v${GitBuildVersionSimple}.zip
-          gh release upload --repo miles-till/csv-merge ${GITHUB_REF_NAME} drop/bin/osx-x64-v${GitBuildVersionSimple}.zip
+          gh release upload --repo miles-till/csv-merge ${GITHUB_REF_NAME} drop/bin/linux-x64-v${GITHUB_REF_NAME}.zip
+          gh release upload --repo miles-till/csv-merge ${GITHUB_REF_NAME} drop/bin/win-x64-v${GITHUB_REF_NAME}.zip
+          gh release upload --repo miles-till/csv-merge ${GITHUB_REF_NAME} drop/bin/osx-x64-v${GITHUB_REF_NAME}.zip
         env:
           GH_TOKEN: ${{github.token}}

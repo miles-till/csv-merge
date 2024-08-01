@@ -6,9 +6,6 @@ inputs:
   runtime:
     description: dotnet runtime to publish against
     required: true
-  version:
-    description: version name to include in the zip filename (x.y.z)
-    required: true
 
 runs:
   using: "composite"
@@ -22,8 +19,9 @@ runs:
       uses: thedoctor0/zip-release@0.7.5
       with:
         type: zip
-        filename: drop/bin/${{inputs.runtime}}/csv-merge-${{inputs.runtime}}-v${{inputs.version}}.zip
+        filename: drop/bin/${{inputs.runtime}}/csv-merge-${{inputs.runtime}}-${GITHUB_REF_NAME}.zip
         path: drop/publish/${{inputs.runtime}}
+        command: mkdir -p drop/bin/${{inputs.runtime}}
 
     - name: artifacts
       uses: actions/upload-artifact@v4
