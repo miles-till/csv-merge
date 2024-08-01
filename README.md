@@ -1,7 +1,7 @@
 # CsvMerge
 
-[![CsvMerge](https://img.shields.io/nuget/v/CsvMerge)](https://www.nuget.org/packages/CsvMerge)
-[![CsvMerge.Core](https://img.shields.io/nuget/v/CsvMerge.Core)](https://www.nuget.org/packages/CsvMerge.Core)
+[![CsvMerge](https://img.shields.io/nuget/v/CsvMerge?logo=nuget&label=CsvMerge)](https://www.nuget.org/packages/CsvMerge)
+[![CsvMerge.Core](https://img.shields.io/nuget/v/CsvMerge.Core?logo=nuget&label=CsvMerge.Core)](https://www.nuget.org/packages/CsvMerge.Core)
 [![ci](https://github.com/miles-till/csv-merge/actions/workflows/build.yml/badge.svg?branch=main)](https://github.com/miles-till/csv-merge/actions/workflows/build.yml)
 [![cd](https://github.com/miles-till/csv-merge/actions/workflows/publish.yml/badge.svg)](https://github.com/miles-till/csv-merge/actions/workflows/publish.yml)
 
@@ -37,7 +37,15 @@ Options:
   -?, -h, --help                           Show help and usage information
 ```
 
+## Standalone executable
+
+Download the latest version for your OS from [Releases](https://github.com/miles-till/csv-merge/releases).
+
+See [Arguments](#arguments) above.
+
 ## Nuget package
+
+CsvMerge tool available as a zero dependency Nuget package.
 
 ### Quick start
 

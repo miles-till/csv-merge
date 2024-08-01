@@ -2,6 +2,7 @@
 
     <PropertyGroup>
         <RootNamespace>CsvMerge</RootNamespace>
+        <Description>CsvMerge tool available as a zero dependency Nuget package.</Description>
         
         <PackageId>CsvMerge.Core</PackageId>
         <EnablePackageValidation>true</EnablePackageValidation>

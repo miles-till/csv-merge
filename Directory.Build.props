@@ -10,6 +10,7 @@
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <PackageProjectUrl>https://github.com/miles-till/csv-merge</PackageProjectUrl>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <PackageTags>csv merge file data</PackageTags>
     </PropertyGroup>
 
     <ItemGroup>
