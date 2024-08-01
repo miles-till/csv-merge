@@ -7,17 +7,20 @@ inputs:
     description: version name to include in the zip filename
 
 runs:
-  - name: dotnet publish
-    run: dotnet publish ./CsvMerge/CsvMerge.csproj -c Release -r ${{inputs.runtime}} --self-contained /p:PublishAot=true /p:DebugSymbols=False /p:DebugType=None -o drop/publish/${{inputs.runtime}}
+  using: "composite"
 
-  - name: zip
-    run: |
-      mkdir -p ../../bin
-      zip -r ../../bin/csv-merge-${{inputs.runtime}}-v${{inputs.version}}.zip .
-    working-directory: drop/publish/${{inputs.runtime}}
+  steps:
+    - name: dotnet publish
+      run: dotnet publish ./CsvMerge/CsvMerge.csproj -c Release -r ${{inputs.runtime}} --self-contained /p:PublishAot=true /p:DebugSymbols=False /p:DebugType=None -o drop/publish/${{inputs.runtime}}
 
-  - name: artifacts
-    uses: actions/upload-artifact@v4
-    with:
-      name: ${{inputs.runtime}}
-      path: drop/bin/${{inputs.runtime}}
+    - name: zip
+      run: |
+        mkdir -p ../../bin
+        zip -r ../../bin/csv-merge-${{inputs.runtime}}-v${{inputs.version}}.zip .
+      working-directory: drop/publish/${{inputs.runtime}}
+
+    - name: artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: ${{inputs.runtime}}
+        path: drop/bin/${{inputs.runtime}}
